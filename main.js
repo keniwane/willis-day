@@ -126,7 +126,7 @@ yesBtn.addEventListener('click', () => {
     confetti.style.opacity = '0.85';
     confetti.style.transform = `rotate(${Math.random()*360}deg)`;
     confetti.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
-    confetti.style.animation = `confetti-fall ${2 + Math.random()*2}s linear forwards`;
+    confetti.style.animation = `confetti-fall 3s linear forwards`;
     confettiContainer.appendChild(confetti);
   }
 
@@ -143,7 +143,7 @@ yesBtn.addEventListener('click', () => {
   setTimeout(() => {
     confettiContainer.remove();
     style.remove();
-  }, 4000);
+  }, 3000);
 });
 
 // Move No button to random position when hovered
