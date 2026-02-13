@@ -82,7 +82,7 @@ document.body.appendChild(noBtn);
 
 yesBtn.addEventListener('click', () => {
     // Play win.mp3 audio
-    const winAudio = new Audio('/win.mp3');
+    const winAudio = new Audio('win.mp3');
     winAudio.play();
   // spawnFireworks();
   // Hide overlays and letter/icon
