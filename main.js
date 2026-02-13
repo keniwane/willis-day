@@ -84,31 +84,31 @@ document.body.appendChild(noBtn);
 
 yesBtn.addEventListener('click', () => {
             // Strobe effect overlay
-            const strobeOverlay = document.createElement('div');
-            strobeOverlay.style.position = 'fixed';
-            strobeOverlay.style.left = '0';
-            strobeOverlay.style.top = '0';
-            strobeOverlay.style.width = '100vw';
-            strobeOverlay.style.height = '100vh';
-            strobeOverlay.style.pointerEvents = 'none';
-            strobeOverlay.style.zIndex = '9998';
-            strobeOverlay.style.transition = 'background 0.1s';
-            document.body.appendChild(strobeOverlay);
+            // const strobeOverlay = document.createElement('div');
+            // strobeOverlay.style.position = 'fixed';
+            // strobeOverlay.style.left = '0';
+            // strobeOverlay.style.top = '0';
+            // strobeOverlay.style.width = '100vw';
+            // strobeOverlay.style.height = '100vh';
+            // strobeOverlay.style.pointerEvents = 'none';
+            // strobeOverlay.style.zIndex = '9998';
+            // strobeOverlay.style.transition = 'background 0.1s';
+            // document.body.appendChild(strobeOverlay);
 
-            const strobeColors = [
-              'rgba(255,0,0,0.25)',
-              'rgba(0,255,0,0.25)',
-              'rgba(0,0,255,0.25)',
-              'rgba(255,255,0,0.25)',
-              'rgba(0,255,255,0.25)',
-              'rgba(255,0,255,0.25)',
-              'rgba(255,255,255,0.18)'
-            ];
-            let strobeIndex = 0;
-            const strobeInterval = setInterval(() => {
-              strobeOverlay.style.background = strobeColors[strobeIndex % strobeColors.length];
-              strobeIndex++;
-            }, 200);
+            // const strobeColors = [
+            //   'rgba(255,0,0,0.25)',
+            //   'rgba(0,255,0,0.25)',
+            //   'rgba(0,0,255,0.25)',
+            //   'rgba(255,255,0,0.25)',
+            //   'rgba(0,255,255,0.25)',
+            //   'rgba(255,0,255,0.25)',
+            //   'rgba(255,255,255,0.18)'
+            // ];
+            // let strobeIndex = 0;
+            // const strobeInterval = setInterval(() => {
+            //   strobeOverlay.style.background = strobeColors[strobeIndex % strobeColors.length];
+            //   strobeIndex++;
+            // }, 200);
       // Show Tenor monkey gif
       // Remove any existing gif overlay and timeout
       if (tenorDiv) {
