@@ -94,7 +94,6 @@ export class Hero extends GameObject {
     // Log grid coordinates
     const gridX = Math.floor(this.position.x / 16);
     const gridY = Math.floor(this.position.y / 16);
-    console.log(`Player grid position: (${this.lastX}, ${this.lastY})`);
     events.emit("HERO_POSITION", this.position)
   }w
 

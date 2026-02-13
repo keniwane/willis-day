@@ -12,6 +12,8 @@ document.body.appendChild(helloDiv);
 
 // Create Yes and No buttons
 let pressEHidden = false;
+let tenorDiv = null;
+let tenorDivTimeout = null;
 const yesBtn = document.createElement('button');
 yesBtn.innerText = 'Yes';
 yesBtn.style.position = 'absolute';
@@ -81,9 +83,72 @@ noBtn.addEventListener('mouseleave', () => {
 document.body.appendChild(noBtn);
 
 yesBtn.addEventListener('click', () => {
+            // Strobe effect overlay
+            const strobeOverlay = document.createElement('div');
+            strobeOverlay.style.position = 'fixed';
+            strobeOverlay.style.left = '0';
+            strobeOverlay.style.top = '0';
+            strobeOverlay.style.width = '100vw';
+            strobeOverlay.style.height = '100vh';
+            strobeOverlay.style.pointerEvents = 'none';
+            strobeOverlay.style.zIndex = '9998';
+            strobeOverlay.style.transition = 'background 0.1s';
+            document.body.appendChild(strobeOverlay);
+
+            const strobeColors = [
+              'rgba(255,0,0,0.25)',
+              'rgba(0,255,0,0.25)',
+              'rgba(0,0,255,0.25)',
+              'rgba(255,255,0,0.25)',
+              'rgba(0,255,255,0.25)',
+              'rgba(255,0,255,0.25)',
+              'rgba(255,255,255,0.18)'
+            ];
+            let strobeIndex = 0;
+            const strobeInterval = setInterval(() => {
+              strobeOverlay.style.background = strobeColors[strobeIndex % strobeColors.length];
+              strobeIndex++;
+            }, 200);
+      // Show Tenor monkey gif
+      // Remove any existing gif overlay and timeout
+      if (tenorDiv) {
+        tenorDiv.remove();
+        tenorDiv = null;
+      }
+      if (tenorDivTimeout) {
+        clearTimeout(tenorDivTimeout);
+        tenorDivTimeout = null;
+      }
+      tenorDiv = document.createElement('div');
+      tenorDiv.className = 'tenor-gif-embed';
+      tenorDiv.setAttribute('data-postid', '11680171459206479686');
+      tenorDiv.setAttribute('data-share-method', 'host');
+      tenorDiv.setAttribute('data-aspect-ratio', '1');
+      tenorDiv.setAttribute('data-width', '120px');
+      tenorDiv.style.position = 'absolute';
+      tenorDiv.style.top = '-800px';
+      tenorDiv.style.width = '120px';
+      tenorDiv.style.maxWidth = '120px';
+      tenorDiv.style.minWidth = '120px';
+      tenorDiv.style.transform = 'translate(-50%, 0)';
+      tenorDiv.style.zIndex = '10000';
+      document.body.appendChild(tenorDiv);
+
+      // Add the Tenor embed script if not already present
+      if (!document.getElementById('tenor-embed-script')) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://tenor.com/embed.js';
+        script.id = 'tenor-embed-script';
+        document.body.appendChild(script);
+      }
     // Play win.mp3 audio
     const winAudio = new Audio('win.mp3');
     winAudio.play();
+    // Play celebration.mp3 audio
+    const celebrationAudio = new Audio('celebration.mp3');
+    celebrationAudio.play();
   // spawnFireworks();
   // Hide overlays and letter/icon
   if (letter) {
@@ -122,11 +187,11 @@ yesBtn.addEventListener('click', () => {
     confetti.style.background = colors[Math.floor(Math.random()*colors.length)];
     confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
     confetti.style.left = Math.random() * window.innerWidth + 'px';
-    confetti.style.top = '-20px';
+    confetti.style.top = '0';
     confetti.style.opacity = '0.85';
     confetti.style.transform = `rotate(${Math.random()*360}deg)`;
     confetti.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
-    confetti.style.animation = `confetti-fall 3s linear forwards`;
+    confetti.style.animation = `confetti-fall ${2 + Math.random()*2}s linear forwards`;
     confettiContainer.appendChild(confetti);
   }
 
@@ -143,7 +208,7 @@ yesBtn.addEventListener('click', () => {
   setTimeout(() => {
     confettiContainer.remove();
     style.remove();
-  }, 3000);
+  }, 4000);
 });
 
 // Move No button to random position when hovered
@@ -255,6 +320,14 @@ mainScene.input = new Input();
 
 // Establish update and draw loops
 const update = (delta) => {
+        // Update Tenor gif overlay position if visible
+        if (tenorDiv) {
+          const rect = canvas.getBoundingClientRect();
+          const x = hero.position.x + camera.position.x + rect.left;
+          const y = hero.position.y + camera.position.y + rect.top - 100; // 100px above hero
+          tenorDiv.style.left = Math.round(x) + 'px';
+          tenorDiv.style.top ='-500px';
+        }
     // Remove letter and hide Hello text and buttons if icon is not spawned
     if (!iconSpawned && letterSpawned && letter) {
       letter.destroy();
